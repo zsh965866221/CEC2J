@@ -51,12 +51,21 @@ public class MSocketServer {
                 input=new DataInputStream(client.getInputStream());
                 output=new DataOutputStream(client.getOutputStream());
 
-                String msgs=input.readUTF();
-                output.writeUTF("Recive: "+msgs+"  \r\n ...");
-                System.out.println("Recive: "+msgs);
-                msgs=input.readUTF();
-                output.writeUTF("Recive: "+msgs+"  \r\n ...");
-                System.out.println("Recive: "+msgs);
+                String msg="";
+                while(msg!=null){
+                    if(client.isOutputShutdown()||client.isClosed())
+                        break;
+                    msg=input.readUTF();
+                    output.writeUTF("Recive: "+msg+"  \r\n ...");
+                    System.out.println("Recive: "+msg);
+
+                }
+//                String msgs=input.readUTF();
+//                output.writeUTF("Recive: "+msgs+"  \r\n ...");
+//                System.out.println("Recive: "+msgs);
+//                msgs=input.readUTF();
+//                output.writeUTF("Recive: "+msgs+"  \r\n ...");
+//                System.out.println("Recive: "+msgs);
             } catch (IOException e) {
                 e.printStackTrace();
             }

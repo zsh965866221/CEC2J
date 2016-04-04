@@ -7,6 +7,7 @@ import java.io.OutputStream;
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.util.Scanner;
 
 /**
  * Created by zsh96 on 2016/4/4.
@@ -20,12 +21,15 @@ public class MClient {
             DataOutputStream doc=new DataOutputStream(out);
             DataInputStream in=new DataInputStream(socket.getInputStream());
 
-            doc.writeUTF("list");
-            String res=in.readUTF();
-            System.out.println(res);
-            doc.writeUTF("byte");
-            res=in.readUTF();
-            System.out.println(res);
+            Scanner scanner=new Scanner(System.in);
+
+            String ss="aa";
+            while(!ss.equals("")){
+                ss=scanner.nextLine();
+                doc.writeUTF(ss);
+                String res=in.readUTF();
+                System.out.println(res);
+            }
             doc.close();
             in.close();
         } catch (IOException e) {
