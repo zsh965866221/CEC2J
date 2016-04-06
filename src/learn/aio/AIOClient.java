@@ -12,12 +12,14 @@ import java.util.Scanner;
 public class AIOClient {
     public static void main(String[] args) throws IOException {
         AsynchronousSocketChannel client=AsynchronousSocketChannel.open();
-        client.connect(new InetSocketAddress("localhost",9000));
+
         String ss;
         Scanner scanner=new Scanner(System.in);
         while (true){
+            client.connect(new InetSocketAddress("localhost",9000));
             ss=scanner.nextLine();
             client.write(ByteBuffer.wrap(ss.getBytes()));
+            client.close();
         }
     }
 }

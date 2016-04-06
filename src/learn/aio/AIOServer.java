@@ -32,39 +32,7 @@ public class AIOServer {
         System.out.println(Thread.currentThread().getName()+": recive: "+new String(readBuf.array()));
     }
     void startWithCompletionHandler(){
-        server.accept(null, new CompletionHandler<AsynchronousSocketChannel, Object>() {
-            final ByteBuffer buffer=ByteBuffer.allocate(1024);
-            @Override
-            public void completed(AsynchronousSocketChannel result, Object attachment) {
-                System.out.println(Thread.currentThread().getName()+" start");
-                buffer.clear();
-                try {
-                    result.read(buffer).get(100,TimeUnit.SECONDS);
-                    buffer.flip();
-                    System.out.println(Thread.currentThread().getName()+": receive: "+new String(buffer.array()));
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                } catch (TimeoutException e) {
-                    e.printStackTrace();
-                }finally {
-                    try {
-                        result.close();
-                        server.accept(null,this);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-
-                }
-                System.out.println(Thread.currentThread().getName()+": End");
-            }
-
-            @Override
-            public void failed(Throwable exc, Object attachment) {
-                System.out.println("failed: "+exc);
-            }
-        });
+        server.accept(null, new AcceptCompletionHandler());
         while(true){
             System.out.println("main thread");
             try {
@@ -72,6 +40,38 @@ public class AIOServer {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+        }
+    }
+    class AcceptCompletionHandler implements CompletionHandler<AsynchronousSocketChannel,Object>{
+
+        final ByteBuffer buffer=ByteBuffer.allocate(1024);
+        @Override
+        public void completed(AsynchronousSocketChannel result, Object attachment) {
+            System.out.println(Thread.currentThread().getName()+" start");
+            buffer.clear();
+            try {
+                result.read(buffer).get(100,TimeUnit.SECONDS);
+                buffer.flip();
+                System.out.println(Thread.currentThread().getName()+": receive: "+new String(buffer.array()));
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            } catch (TimeoutException e) {
+                e.printStackTrace();
+            }finally {
+                try {
+                    result.close();
+                    server.accept(null,new AcceptCompletionHandler());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        @Override
+        public void failed(Throwable exc, Object attachment) {
+            System.out.println("failed: "+exc);
         }
     }
     public static void main(String[] args) throws IOException, InterruptedException, ExecutionException, TimeoutException {
