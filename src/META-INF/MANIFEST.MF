@@ -1,0 +1,3 @@
+Manifest-Version: 1.0
+Main-Class: net.zsh_o.cec4j.test.ui.InitUI
+

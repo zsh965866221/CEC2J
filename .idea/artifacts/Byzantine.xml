@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Byzantine">
+    <output-path>$PROJECT_DIR$/out/artifacts/Byzantine</output-path>
+    <root id="archive" name="Byzantine.jar">
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/meta/byzantine/META-INF/MANIFEST.MF" />
+      </element>
+      <element id="module-output" name="CEC4J" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/dom4j/dom4j/1.6.1/dom4j-1.6.1.jar" path-in-jar="/" />
+      <element id="library" level="project" name="Maven: dom4j:dom4j:1.6.1" />
+    </root>
+  </artifact>
+</component>

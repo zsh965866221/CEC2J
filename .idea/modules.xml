@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/CEC4J.iml" filepath="$PROJECT_DIR$/CEC4J.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lib/zsh_o.iml" filepath="$PROJECT_DIR$/lib/zsh_o.iml" />
+    </modules>
+  </component>
+</project>
