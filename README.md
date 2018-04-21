@@ -1,8 +1,5 @@
 # CEC4J
 完全对等的p2p框架
 
-## 设计思路详见wiki
+## 设计思路详见wiki，或者[设计](https://github.com/zsh965866221/CEC4J/tree/master/%E8%AE%BE%E8%AE%A1)文件夹
 
-## 上github有点难度,转战oschina：http://git.oschina.net/zsh_o/CEC4J
-
-## 由于某种原因转回github
